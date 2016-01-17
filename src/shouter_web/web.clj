@@ -1,14 +1,18 @@
-(ns shouter-web.web
-  (:use compojure.core)
-  (:require [compojure.handler :as handler]
-            [shouter-web.views.layout :as layout]))
+(ns shouter_web.web
+  (:require [compojure.core :refer [defroutes]]
+            [ring.adapter.jetty :as ring]
+            [compojure.route :as route]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [shouter_web.controllers.shouts :as shouts]
+            [shouter_web.views.layout :as layout]
+            [shouter_web.models.migration :as schema]))
 
-(defn str-to [num]
-  (apply str (interpose ", " (range 1 (inc num)))))
+(defroutes routes
+  shouts/routes
+  (route/resources "/")
+  (route/not-found (layout/four-oh-four)))
 
-(defn str-from [num]
-  (apply str (interpose ", " (reverse (range 1 (inc num))))))
-
-(defroutes app
-  (GET "/count-up/:to" [to] (layout/common "SHOUTER" (str-to (Integer. to))))
-  (GET "/count-down/:from" [from] (layout/common "SHOUTER" (str-from (Integer. from)))))
+(def app
+  (do
+    (schema/migrate)
+    (wrap-defaults routes site-defaults)))
