@@ -1,6 +1,6 @@
-#Clojure application demonstrating the use of Ring, Compojure, Hiccup and database.
+#Shouter
 
-This web application is a tutorial for learnign basic Clojure web stack. Each branch is a step in the tutorial.
+This web application is a tutorial for learning basic Clojure web stack: Ring, Compojure, Hiccup and database. Each branch is a step in the tutorial.
 
 #Credits
 
