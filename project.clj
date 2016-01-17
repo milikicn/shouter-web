@@ -8,4 +8,7 @@
                  [ring/ring-jetty-adapter "1.4.0"]
                  [compojure "1.4.0"]]
   
-  :plugins [[lein2-eclipse "2.0.0"]])
+  :plugins [[lein2-eclipse "2.0.0"]
+            [lein-ring "0.8.10"]]
+  
+  :ring {:handler shouter-web.handler/app})
